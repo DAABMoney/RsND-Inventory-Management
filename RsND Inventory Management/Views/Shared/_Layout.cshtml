@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RsND Inventory Management</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn/fort-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/img/favicon.ico" rel="icon" type="image/x-icon" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img alt="RsND" src="~/img/Logo.png" height="65" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            // if (User.IsInRole("Administrator"))
+                            // {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-white dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Information</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="Customer" asp-action="Index">Customers</a>
+                                    <!--<a class="dropdown-item" asp-controller="Order" asp-action="Index">Orders</a>--->
+                                    <a class="dropdown-item" asp-controller="Supplier" asp-action="Index">Suppliers</a>
+                                    <!---<a class="dropdown-item" asp-controller="Invoice" asp-action="Index">Invoices</a>--->
+                                </div>
+                            </li>
+                            // }
+                                                        
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
+                        </li>
+                        }
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <!--- <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Staff" asp-action="">Team</a>
+                        </li>--->
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <!-- <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>-->
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; @DateTime.Now.Year - RsND Inventory Management - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
